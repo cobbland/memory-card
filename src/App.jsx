@@ -11,6 +11,7 @@ export default function App() {
   
   const getPokemon = async () => {
     const twelvePokemon = [];
+    loading();
     while (twelvePokemon.length < 12) {
       const pokemonNum = Math.floor(Math.random() * 252) + 1;
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNum}`);
@@ -34,6 +35,11 @@ export default function App() {
     setPokemon(twelvePokemon);
     setClicked([]);
     setScore(0);
+  }
+
+  function loading() {
+    const twelvePokemon = [{ name: "Loading...", }];
+    setPokemon(twelvePokemon);
   }
 
   function handleClick(target) {

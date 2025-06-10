@@ -2,7 +2,7 @@ export default function Card({ name, image, cry, onClick}) {
     const pokeCry = new Audio(cry);
 
     function handleClick(target) {
-        // pokeCry.play();
+        pokeCry.play();
         onClick(target);
     }
 

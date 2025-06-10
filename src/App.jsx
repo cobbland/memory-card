@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import Score from './components/Score.jsx';
 import Card from './components/Card.jsx';
-import logo from './assets/memory-card.png';
 
 export default function App() {
+  const [instructions, setInstructions] = useState('Click "Start" to begin!');
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [pokemon, setPokemon] = useState([]);
@@ -30,10 +30,14 @@ export default function App() {
         twelvePokemon.push(poke);
       }
     }
+    setInstructions("Click on each Pokémon card only once to catch 'em all!");
     setPokemon(twelvePokemon);
+    setClicked([]);
+    setScore(0);
   }
 
   function handleClick(target) {
+    console.log([...clicked, target]);
     if (!clicked.includes(target)) {
       setClicked([...clicked, target]);
       const newScore = score + 1;
@@ -41,13 +45,19 @@ export default function App() {
       setPokemon(newPoke);
       setScore(newScore);
       if (clicked.length === 11) {
-        console.log("You win!");
+        setInstructions("You win!");
+        const newScore = score + 1;
+        handleBestScore(newScore);
+        setClicked([]);
+        setScore(0);
+        setPokemon([]);
       }
     } else {
-      setBestScore(score);
+      handleBestScore(score);
       setClicked([]);
       setScore(0);
       setPokemon([]);
+      setInstructions('You lose. Click "Start" to try again!');
     }
   }
 
@@ -60,11 +70,18 @@ export default function App() {
     return array;
   } 
 
+  function handleBestScore(score) {
+    if (score > bestScore) {
+      setBestScore(score);
+    }
+  }
+
   return (
     <>
       <h1>Memory Card</h1>
-      <p className="instructions">Click on each Pokémon card only once to catch 'em all and win!</p>
-      <Score score={score} bestScore = {bestScore} />
+      <p className="instructions">{instructions}</p>
+      <Score score={score} bestScore={bestScore} />
+      <button onClick={getPokemon}>Start</button>
       <div className="cards">
         {pokemon.map((each) => (
           <Card 
@@ -76,7 +93,6 @@ export default function App() {
           />
         ))}
       </div>
-      <button onClick={getPokemon}>Start</button>
     </>
   )
 }

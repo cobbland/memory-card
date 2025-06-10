@@ -1,9 +1,9 @@
 export default function Score({ score, bestScore }) {
 
     return (
-        <div>
-            <p>Score: {score}</p>
-            <p>Best score: {bestScore}</p>
+        <div className="scores">
+            <p>Caught: {score}</p>
+            <p>Most Caught: {bestScore}</p>
         </div>
     )
 }

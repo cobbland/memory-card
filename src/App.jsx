@@ -38,7 +38,7 @@ export default function App() {
   }
 
   function loading() {
-    const twelvePokemon = [{ name: "Loading...", }];
+    const twelvePokemon = [{ name: "Walking through tall grass...", }];
     setPokemon(twelvePokemon);
   }
 

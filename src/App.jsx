@@ -55,13 +55,11 @@ export default function App() {
         const newScore = score + 1;
         handleBestScore(newScore);
         setClicked([]);
-        setScore(0);
         setPokemon([]);
       }
     } else {
       handleBestScore(score);
       setClicked([]);
-      setScore(0);
       setPokemon([]);
       setInstructions('You lose. Click "Start" to try again!');
     }
